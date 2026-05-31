@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yerem Seni Ronyam — Komedi Botanik</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0f;
+  --bg2:#12121a;
+  --bg3:#1a1a26;
+  --text:#e8e0d8;
+  --text-dim:#8880a0;
+  --rose:#ff4488;
+  --rose-dim:#882244;
+  --gold:#ffaa33;
+  --gold-dim:#885522;
+  --neon:#44ff88;
+  --purple:#8844ff;
+  --cyan:#44ddff;
+  --font-fun:'Bangers',cursive;
+  --font-sans:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-sans);
+  color:var(--text);
+  background:var(--bg);
+  overflow-x:hidden;
+}
+
+/* ===== NAV ===== */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:1rem 2.5rem;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(10,10,15,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,68,136,0.1);
+  transition:transform 0.3s;
+}
+nav .logo{
+  font-family:var(--font-fun);
+  font-size:1.8rem;color:var(--rose);
+  text-decoration:none;letter-spacing:1px;
+  text-shadow:0 0 20px rgba(255,68,136,0.3);
+}
+nav .logo span{color:var(--gold)}
+nav .links{display:flex;gap:2rem;align-items:center}
+nav .links a{
+  text-decoration:none;color:var(--text-dim);
+  font-size:0.85rem;font-weight:600;letter-spacing:0.5px;
+  text-transform:uppercase;transition:all 0.3s;
+  position:relative;
+}
+nav .links a::after{
+  content:'';position:absolute;bottom:-4px;left:0;width:0;
+  height:2px;background:var(--rose);transition:width 0.3s;
+  box-shadow:0 0 10px var(--rose);
+}
+nav .links a:hover{color:var(--rose)}
+nav .links a:hover::after{width:100%}
+nav .links a.active{color:var(--gold)}
+nav .links a.active::after{width:100%;background:var(--gold)}
+
+.menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:5px}
+.menu-toggle span{width:24px;height:2px;background:var(--text);transition:0.3s;border-radius:2px}
+
+/* ===== HERO ===== */
+#hero{
+  position:relative;width:100%;height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+#hero canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0}
+.hero-overlay{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  background:linear-gradient(135deg,rgba(10,10,15,0.6),rgba(18,18,26,0.3));
+  z-index:1;
+}
+.hero-content{
+  position:relative;z-index:2;text-align:center;
+  max-width:800px;padding:2rem;
+  animation:fadeUp 1.5s ease-out;
+}
+.hero-content .sub{
+  font-family:var(--font-fun);
+  font-size:1.1rem;letter-spacing:3px;
+  color:var(--gold);margin-bottom:0.5rem;
+  text-shadow:0 0 30px rgba(255,170,51,0.3);
+}
+.hero-content h1{
+  font-family:var(--font-fun);
+  font-size:clamp(3.5rem,12vw,8rem);
+  color:#fff;line-height:1;
+  margin-bottom:1rem;
+  text-shadow:0 0 40px rgba(255,68,136,0.3),0 4px 30px rgba(0,0,0,0.3);
+}
+.hero-content h1 span{color:var(--gold);text-shadow:0 0 40px rgba(255,170,51,0.4)}
+.hero-content .tagline{
+  font-family:var(--font-fun);
+  font-size:clamp(1.2rem,4vw,2.2rem);
+  color:var(--neon);margin-bottom:1rem;
+  text-shadow:0 0 30px rgba(68,255,136,0.3);
+  letter-spacing:2px;
+}
+.hero-content p{
+  font-size:1rem;color:var(--text-dim);
+  font-weight:300;max-width:500px;margin:0 auto 2rem;
+  line-height:1.8;
+}
+.hero-content .btn-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.hero-content .btn{
+  display:inline-block;
+  padding:0.9rem 2.5rem;
+  border:2px solid var(--rose);
+  color:var(--rose);text-decoration:none;
+  font-family:var(--font-fun);
+  font-size:1.1rem;letter-spacing:1px;
+  transition:all 0.3s;border-radius:50px;
+  background:rgba(255,68,136,0.05);
+  text-shadow:0 0 10px rgba(255,68,136,0.3);
+}
+.hero-content .btn:hover{
+  background:var(--rose);
+  color:#fff;
+  transform:translateY(-3px) scale(1.05);
+  box-shadow:0 10px 40px rgba(255,68,136,0.3);
+}
+.hero-content .btn-gold{
+  border-color:var(--gold);color:var(--gold);
+  background:rgba(255,170,51,0.05);
+  text-shadow:0 0 10px rgba(255,170,51,0.3);
+}
+.hero-content .btn-gold:hover{
+  background:var(--gold);color:#000;
+  box-shadow:0 10px 40px rgba(255,170,51,0.3);
+}
+
+.scroll-indicator{
+  position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
+  z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  animation:floatDown 2s ease-in-out infinite;
+}
+.scroll-indicator span{
+  font-family:var(--font-fun);
+  font-size:0.9rem;color:rgba(255,255,255,0.2);
+}
+.scroll-indicator .line{
+  width:1px;height:30px;
+  background:linear-gradient(to bottom,rgba(255,255,255,0.2),transparent);
+}
+
+/* ===== FUNNY BANNER ===== */
+.funny-banner{
+  background:var(--bg2);
+  border-top:1px solid rgba(255,68,136,0.1);
+  border-bottom:1px solid rgba(255,68,136,0.1);
+  padding:1.2rem 0;
+  overflow:hidden;
+  position:relative;
+}
+.funny-banner .track{
+  display:flex;gap:3rem;
+  animation:scrollText 25s linear infinite;
+  white-space:nowrap;
+}
+.funny-banner .track span{
+  font-family:var(--font-fun);
+  font-size:1.3rem;
+  color:var(--text-dim);
+  letter-spacing:2px;
+}
+.funny-banner .track .em{color:var(--rose)}
+.funny-banner .track .em2{color:var(--gold)}
+.funny-banner .track .em3{color:var(--neon)}
+@keyframes scrollText{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+
+/* ===== SECTIONS ===== */
+.section{
+  padding:6rem 2rem;position:relative;
+}
+.section-inner{
+  max-width:1100px;margin:0 auto;
+}
+.section-label{
+  font-family:var(--font-fun);
+  font-size:1rem;letter-spacing:2px;
+  color:var(--gold);margin-bottom:0.5rem;
+  text-shadow:0 0 20px rgba(255,170,51,0.2);
+}
+.section-title{
+  font-family:var(--font-fun);
+  font-size:clamp(2rem,5vw,3.5rem);
+  color:#fff;
+  margin-bottom:0.5rem;
+  line-height:1.1;
+  letter-spacing:1px;
+}
+.section-title span{color:var(--rose);text-shadow:0 0 30px rgba(255,68,136,0.3)}
+.section-desc{
+  font-size:1rem;color:var(--text-dim);
+  line-height:1.9;max-width:600px;
+}
+
+/* ===== ABOUT ===== */
+#about{background:var(--bg2)}
+#about .grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:4rem;align-items:center;margin-top:2rem;
+}
+#about .text-content p{
+  font-size:1.05rem;line-height:1.9;color:var(--text-dim);
+  margin-bottom:1.2rem;
+}
+#about .text-content .funny-quote{
+  font-family:var(--font-fun);
+  font-size:1.6rem;color:var(--neon);
+  margin:1.5rem 0;
+  text-shadow:0 0 20px rgba(68,255,136,0.3);
+  padding:1rem;border-left:3px solid var(--neon);
+  background:rgba(68,255,136,0.03);
+  border-radius:0 12px 12px 0;
+}
+#about .image-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1rem;
+}
+#about .image-grid .img-box{
+  aspect-ratio:1;border-radius:16px;
+  overflow:hidden;position:relative;
+  background:var(--bg3);
+  border:1px solid rgba(255,68,136,0.1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:3rem;
+  transition:all 0.3s;
+}
+#about .image-grid .img-box:hover{
+  border-color:var(--rose);
+  box-shadow:0 0 30px rgba(255,68,136,0.1);
+  transform:scale(1.05);
+}
+#about .image-grid .img-box .caption{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:0.8rem;
+  font-family:var(--font-fun);
+  font-size:0.8rem;color:var(--rose);
+  background:linear-gradient(transparent,rgba(10,10,15,0.8));
+  text-align:center;
+}
+
+/* ===== GALLERY ===== */
+#gallery{background:var(--bg)}
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:1.2rem;margin-top:2rem;
+}
+.gallery-item{
+  position:relative;border-radius:16px;
+  overflow:hidden;aspect-ratio:1;
+  cursor:pointer;transition:all 0.4s;
+  background:var(--bg3);
+  border:1px solid rgba(255,255,255,0.05);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:0.5rem;
+}
+.gallery-item:hover{
+  transform:scale(1.03) translateY(-5px);
+  border-color:var(--rose);
+  box-shadow:0 20px 60px rgba(255,68,136,0.15);
+}
+.gallery-item .icon{font-size:3rem;transition:transform 0.5s}
+.gallery-item:hover .icon{transform:scale(1.2) rotate(10deg)}
+.gallery-item .funny{
+  font-family:var(--font-fun);
+  font-size:0.9rem;color:var(--text-dim);
+  padding:0 1rem;text-align:center;
+  transition:color 0.3s;
+}
+.gallery-item:hover .funny{color:var(--rose)}
+.gallery-item .sub-funny{
+  font-family:var(--font-sans);
+  font-size:0.7rem;color:rgba(255,255,255,0.15);
+  text-align:center;padding:0 1rem;
+}
+
+/* ===== COMEDY CARDS ===== */
+#comedy{background:var(--bg2)}
+.comedy-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:1.2rem;margin-top:2rem;
+}
+.comedy-card{
+  padding:2rem;border-radius:16px;
+  background:var(--bg3);
+  border:1px solid rgba(255,255,255,0.05);
+  transition:all 0.4s;
+}
+.comedy-card:hover{
+  border-color:var(--gold);
+  transform:translateY(-5px);
+  box-shadow:0 20px 60px rgba(255,170,51,0.1);
+}
+.comedy-card .emoji{font-size:2.5rem;margin-bottom:0.5rem}
+.comedy-card .text{
+  font-family:var(--font-fun);
+  font-size:1.3rem;color:var(--text);
+  line-height:1.4;
+}
+.comedy-card .author{
+  font-size:0.8rem;color:var(--text-dim);
+  margin-top:1rem;font-style:italic;
+}
+
+/* ===== CONTACT ===== */
+#contact{background:var(--bg)}
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:4rem;margin-top:2rem;
+}
+.contact-info{display:flex;flex-direction:column;gap:1.5rem}
+.contact-info .item{
+  display:flex;align-items:flex-start;gap:1rem;
+  padding:1rem;background:var(--bg3);
+  border-radius:12px;transition:all 0.3s;
+  border:1px solid rgba(255,255,255,0.03);
+}
+.contact-info .item:hover{
+  border-color:rgba(255,68,136,0.2);
+  transform:translateX(5px);
+}
+.contact-info .item .icon{
+  font-size:1.5rem;flex-shrink:0;
+}
+.contact-info .item .label{
+  font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;
+  color:var(--text-dim);margin-bottom:0.2rem;
+}
+.contact-info .item .value{
+  font-family:var(--font-fun);
+  font-size:1rem;color:var(--text);
+}
+.contact-form{display:flex;flex-direction:column;gap:1rem}
+.contact-form input,.contact-form textarea{
+  padding:1rem 1.2rem;
+  background:var(--bg3);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:12px;
+  color:var(--text);
+  font-family:var(--font-sans);
+  font-size:0.9rem;
+  transition:all 0.3s;
+  outline:none;
+}
+.contact-form input::placeholder,.contact-form textarea::placeholder{
+  color:rgba(255,255,255,0.15);
+  font-family:var(--font-fun);
+  font-size:0.9rem;
+}
+.contact-form input:focus,.contact-form textarea:focus{
+  border-color:var(--rose);
+  box-shadow:0 0 30px rgba(255,68,136,0.05);
+}
+.contact-form textarea{min-height:120px;resize:vertical}
+.contact-form button{
+  padding:1rem 2rem;
+  background:linear-gradient(135deg,var(--rose),var(--purple));
+  color:#fff;border:none;border-radius:12px;
+  font-family:var(--font-fun);
+  font-size:1.2rem;letter-spacing:1px;
+  cursor:pointer;transition:all 0.3s;
+}
+.contact-form button:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 40px rgba(255,68,136,0.3);
+}
+
+/* ===== FOOTER ===== */
+footer{
+  background:var(--bg);
+  border-top:1px solid rgba(255,255,255,0.03);
+  padding:2.5rem 2rem;
+  text-align:center;
+}
+footer p{font-size:0.8rem;color:var(--text-dim)}
+footer .footer-logo{
+  font-family:var(--font-fun);
+  font-size:1.5rem;color:var(--text-dim);
+  margin-bottom:0.3rem;
+}
+footer .footer-logo span{color:var(--rose);text-shadow:0 0 20px rgba(255,68,136,0.2)}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--rose-dim)}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(40px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes floatDown{
+  0%,100%{transform:translateX(-50%) translateY(0)}
+  50%{transform:translateX(-50%) translateY(8px)}
+}
+
+.reveal{
+  opacity:0;transform:translateY(40px);
+  transition:all 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ===== TEASER STRIP ===== */
+.teaser{
+  position:fixed;bottom:0;left:0;right:0;z-index:50;
+  background:linear-gradient(90deg,var(--rose-dim),var(--gold-dim),var(--rose-dim));
+  padding:0.5rem;
+  text-align:center;
+  font-family:var(--font-fun);
+  font-size:clamp(0.7rem,2vw,1rem);
+  color:#fff;
+  letter-spacing:2px;
+  animation:teaserPulse 2s ease-in-out infinite;
+  text-shadow:0 0 10px rgba(255,255,255,0.3);
+  pointer-events:none;
+}
+@keyframes teaserPulse{
+  0%,100%{opacity:0.7}
+  50%{opacity:1}
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  nav{padding:0.8rem 1.5rem}
+  nav .links{
+    display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;
+    background:rgba(10,10,15,0.98);backdrop-filter:blur(20px);
+    padding:1.5rem;gap:1.2rem;border-bottom:1px solid rgba(255,68,136,0.1);
+  }
+  nav .links.open{display:flex}
+  .menu-toggle{display:flex}
+  #about .grid,.contact-grid{grid-template-columns:1fr}
+  .section{padding:4rem 1.5rem}
+}
+@media(max-width:600px){
+  nav{padding:0.6rem 1rem}
+  nav .logo{font-size:1.4rem}
+  .hero-content h1{font-size:2.8rem}
+  .hero-content .tagline{font-size:1.2rem}
+  .section{padding:3rem 1rem}
+  .comedy-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- TEASER STRIP -->
+<div class="teaser">🔥 AKILLI OL — YOKSA SENI ISIRIRIM! 🔥</div>
+
+<nav id="navbar">
+  <a href="#" class="logo">🔥 Yerem Seni <span>Ronyam</span></a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Menü">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="links" id="navLinks">
+    <a href="#hero" class="active">Ana Sayfa</a>
+    <a href="#about">Hakkında</a>
+    <a href="#gallery">Galeri</a>
+    <a href="#comedy">Komedi</a>
+    <a href="#contact">İletişim</a>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="sub">🌿 AKILLI OL, TERBIYELI OL!</div>
+    <h1>Yerem Seni <span>Ronyam</span></h1>
+    <div class="tagline">YOKSA SENI ISIRIRIM! 😈</div>
+    <p>Doğanın en komik haliyle tanışın. 3D çiçekler, kahkaha dolu espriler ve bolca Ronya kafası!</p>
+    <div class="btn-row">
+      <a href="#about" class="btn">🌺 KEŞFET</a>
+      <a href="#comedy" class="btn btn-gold">😂 GÜL</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>KAYDIR</span>
+    <div class="line"></div>
+  </div>
+</section>
+
+<!-- FUNNY MARQUEE -->
+<div class="funny-banner">
+  <div class="track">
+    <span>🌺 <span class="em">YEREM SENİ</span> RONYA 🌺</span>
+    <span>😈 <span class="em2">AKILLI OL</span> YOKSA ISIRIRIM 😈</span>
+    <span>🌸 <span class="em3">ÇİÇEK GİBİSİN</span> AMA KOMİK 🌸</span>
+    <span>🔥 <span class="em">RONYA STYLE</span> HER YERDE 🔥</span>
+    <span>😂 <span class="em2">GÜLMEKTEN</span> ÖLDÜK 😂</span>
+    <span>🌿 <span class="em3">DOĞA ANA</span> DA GÜLÜYOR 🌿</span>
+    <span>💀 <span class="em">ÇİÇEK</span> KADAR <span class="em">HAFİF</span> 💀</span>
+    <span>🌺 <span class="em">YEREM SENİ</span> RONYA 🌺</span>
+    <span>😈 <span class="em2">AKILLI OL</span> YOKSA ISIRIRIM 😈</span>
+    <span>🌸 <span class="em3">ÇİÇEK GİBİSİN</span> AMA KOMİK 🌸</span>
+    <span>🔥 <span class="em">RONYA STYLE</span> HER YERDE 🔥</span>
+    <span>😂 <span class="em2">GÜLMEKTEN</span> ÖLDÜK 😂</span>
+    <span>🌿 <span class="em3">DOĞA ANA</span> DA GÜLÜYOR 🌿</span>
+    <span>💀 <span class="em">ÇİÇEK</span> KADAR <span class="em">HAFİF</span> 💀</span>
+  </div>
+</div>
+
+<section class="section" id="about">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">🌺 HAKKINDA</div>
+      <h2 class="section-title">Çiçek <span>Komedisi</span></h2>
+      <p class="section-desc">Doğa ananın en komik hallerini bir araya getirdik. Uyarı: Okurken gülmekten çiçek açabilirsiniz.</p>
+    </div>
+    <div class="grid">
+      <div class="text-content reveal">
+        <p>Yerem Seni Ronyam — doğanın en tuhaf, en komik ve en absürt halinin 3D yansıması. Burası ciddi bir botanik sitesi değil, burası bir <strong>çiçek komedi kulübü</strong>.</p>
+        <p>Her bir çiçeğin bir espirisi, her bir yaprağın bir şakası var. Biz çiçekleri konuşturuyoruz, onlar da bize güldürüyor. Kurallar basit: <strong>akıllı ol</strong>, saygılı ol, yoksa...</p>
+
+        <div class="funny-quote">
+          😈 "Akıllı ol, yoksa seni ısırırım!" — Ronya Çiçeği #7
+        </div>
+
+        <p>3D teknolojimiz sayesinde çiçekler sizinle konuşuyor, dans ediyor ve size göz kırpıyor. Bilim kurgu mu? Hayır. Ronya bilimi.</p>
+      </div>
+      <div class="image-grid reveal">
+        <div class="img-box">
+          🌹
+          <div class="caption">"ben gülüm yeter"</div>
+        </div>
+        <div class="img-box">
+          😈
+          <div class="caption">"akıllı ol dedik"</div>
+        </div>
+        <div class="img-box">
+          🌸
+          <div class="caption">"uçuyorum kaç"</div>
+        </div>
+        <div class="img-box">
+          🔥
+          <div class="caption">"Ronya style"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="gallery">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">🌸 GALERİ</div>
+      <h2 class="section-title">Çiçek <span>Kafası</span></h2>
+      <p class="section-desc">Her çiçeğin bir hikayesi, her hikayenin bir şakası var.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <div class="icon">🌹</div>
+        <div class="funny">"Kırmızı gülüm, hadi gülüm"</div>
+        <div class="sub-funny">Komedi seviyesi: Aşk 🫠</div>
+      </div>
+      <div class="gallery-item">
+        <div class="icon">💜</div>
+        <div class="funny">"Lavanta, yavanda ne?"</div>
+        <div class="sub-funny">Komedi seviyesi: Kafa 💫</div>
+      </div>
+      <div class="gallery-item">
+        <div class="icon">🌻</div>
+        <div class="funny">"Ayçiçeğiyim, güneşe susadım"</div>
+        <div class="sub-funny">Komedi seviyesi: Işıl 🔆</div>
+      </div>
+      <div class="gallery-item">
+        <div class="icon">🌿</div>
+        <div class="funny">"Yaprak gibi hafif, komedi gibi derin"</div>
+        <div class="sub-funny">Komedi seviyesi: Efsane 🌪️</div>
+      </div>
+      <div class="gallery-item">
+        <div class="icon">🌵</div>
+        <div class="funny">"Dikenliyim ama komiğim"</div>
+        <div class="sub-funny">Komedi seviyesi: Acıtır 💢</div>
+      </div>
+      <div class="gallery-item">
+        <div class="icon">🍄</div>
+        <div class="funny">"Mantarlı şaka, çok eski"</div>
+        <div class="sub-funny">Komedi seviyesi: Bayat 🧀</div>
+      </div>
+      <div class="gallery-item">
+        <div class="icon">🌴</div>
+        <div class="funny">"Palmiye ağacı, yanar mı bacı?"</div>
+        <div class="sub-funny">Komedi seviyesi: Tropik 🌴</div>
+      </div>
+      <div class="gallery-item">
+        <div class="icon">🌺</div>
+        <div class="funny">"Akıllı ol, yoksa ısırırım!"</div>
+        <div class="sub-funny">Komedi seviyesi: TEHLİKELİ ☢️</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="comedy">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">😂 KOMEDİ</div>
+      <h2 class="section-title">Ronya <span>Esprileri</span></h2>
+      <p class="section-desc">Bilimsel olarak kanıtlanmıştır: Bu espriler çiçek açtırır.</p>
+    </div>
+    <div class="comedy-grid">
+      <div class="comedy-card reveal">
+        <div class="emoji">🌺</div>
+        <div class="text">"Akıllı ol, yoksa seni ısırırım!" dedi çiçek. Adam kaçtı. Çiçek hala bekliyor.</div>
+        <div class="author">— Ronya Çiçeği #1</div>
+      </div>
+      <div class="comedy-card reveal">
+        <div class="emoji">🌹</div>
+        <div class="text">Gül mü dedin? Ben gülmem, ben güldürürüm. Farkımız bu.</div>
+        <div class="author">— Ronya Çiçeği #2</div>
+      </div>
+      <div class="comedy-card reveal">
+        <div class="emoji">🌻</div>
+        <div class="text">Ayçiçeği terapiye gitmiş. "Sürekli güneşe bakmaktan boynum tutuldu" demiş.</div>
+        <div class="author">— Ronya Çiçeği #3</div>
+      </div>
+      <div class="comedy-card reveal">
+        <div class="emoji">🌵</div>
+        <div class="text">Kaktüsün komedi kariyeri. Diken gibi laflar, batar ama güldürür.</div>
+        <div class="author">— Ronya Çiçeği #4</div>
+      </div>
+      <div class="comedy-card reveal">
+        <div class="emoji">🌸</div>
+        <div class="text">Sakura çiçeği: "Bir haftada açıp bir haftada dökülüyorum. Hayat gibi, kısa ama bol çiçekli."</div>
+        <div class="author">— Ronya Çiçeği #5</div>
+      </div>
+      <div class="comedy-card reveal">
+        <div class="emoji">🌿</div>
+        <div class="text">"Yaprak gibi hissediyorum" dedi adam. "Hafif mi?" dediler. "Hayır, sararıp dökülüyorum" dedi.</div>
+        <div class="author">— Ronya Çiçeği #6</div>
+      </div>
+      <div class="comedy-card reveal">
+        <div class="emoji">🔥</div>
+        <div class="text">Akıllı ol, yoksa seni ısırırım. Bu bir uyarı değil, bir çiçek sözü. 🌺</div>
+        <div class="author">— Ronya Çiçeği #7</div>
+      </div>
+      <div class="comedy-card reveal">
+        <div class="emoji">💀</div>
+        <div class="text">Çiçeklerle konuşan adam sonunda bir çiçek tarafından ısırıldı. Tahmin edin kim? Ronya.</div>
+        <div class="author">— Ronya Çiçeği #8</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">✉ İLETİŞİM</div>
+      <h2 class="section-title">Bize <span>Yaz</span></h2>
+      <p class="section-desc">Bir çiçek gibi açılmak istersen, mesaj at. Akıllı ol yeter.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <div class="item">
+          <div class="icon">✉</div>
+          <div>
+            <div class="label">E-posta</div>
+            <div class="value">cicek@yeremsenironyam.com</div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="icon">📍</div>
+          <div>
+            <div class="label">Adres</div>
+            <div class="value">Çiçek Sokak No:7, İstanbul</div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="icon">📞</div>
+          <div>
+            <div class="label">Telefon</div>
+            <div class="value">+90 212 555 07 07</div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="icon">⚠️</div>
+          <div>
+            <div class="label">Uyarı</div>
+            <div class="value" style="color:var(--rose)">Akıllı ol, yoksa ısırırım!</div>
+          </div>
+        </div>
+      </div>
+      <form class="contact-form reveal" id="contactForm">
+        <input type="text" placeholder="Adın ne kardeş?" required>
+        <input type="email" placeholder="Mail adresin? Akıllı ol yaz yanlış olmasın">
+        <input type="text" placeholder="Konu: Şaka mı, çiçek mi?">
+        <textarea placeholder="Mesajın? Güldür de görelim seni..."></textarea>
+        <button type="submit">GÖNDER GİTSİN 🌺</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">🌺 Yerem Seni <span>Ronyam</span> 🌺</div>
+  <p>© 2026 — Akıllı ol, yoksa seni ısırırım!</p>
+</footer>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+
+// ── 3D SCENE ──
+const canvas = document.createElement('canvas');
+const hero = document.getElementById('hero');
+hero.prepend(canvas);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, hero.clientWidth/hero.clientHeight, 0.1, 100);
+camera.position.set(0, 1.5, 6);
+
+const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+renderer.setSize(hero.clientWidth, hero.clientHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+
+// ── LIGHTS ──
+const ambient = new THREE.AmbientLight(0x222244, 0.4);
+scene.add(ambient);
+const dirLight = new THREE.DirectionalLight(0xffeedd, 2);
+dirLight.position.set(5, 8, 4);
+scene.add(dirLight);
+const rim = new THREE.DirectionalLight(0x8844ff, 0.8);
+rim.position.set(-3, 1, -5);
+scene.add(rim);
+const fill2 = new THREE.DirectionalLight(0xff4488, 0.4);
+fill2.position.set(-2, -1, 3);
+scene.add(fill2);
+
+// ── CREATE FLOWER ──
+function createPetal(scale, color) {
+  const shape = new THREE.Shape();
+  shape.moveTo(0, 0);
+  shape.bezierCurveTo(0.15, 0.1, 0.25, 0.3, 0, 0.5);
+  shape.bezierCurveTo(-0.25, 0.3, -0.15, 0.1, 0, 0);
+  const extrudeSettings = { depth: 0.02, bevelEnabled: true, bevelThickness: 0.02, bevelSize: 0.01, bevelSegments: 4 };
+  const geo = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+  const mat = new THREE.MeshStandardMaterial({
+    color: new THREE.Color(color),
+    roughness: 0.3, metalness: 0.2,
+    side: THREE.DoubleSide, transparent: true, opacity: 0.85,
+  });
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.scale.set(scale, scale, scale);
+  return mesh;
+}
+
+function createFlower(x, y, z, scale, hue, count) {
+  const group = new THREE.Group();
+  const petals = [];
+  const numPetals = count || 8;
+  for (let i = 0; i < numPetals; i++) {
+    const angle = (i / numPetals) * Math.PI * 2;
+    const color = new THREE.Color().setHSL(hue + (i/numPetals)*0.04, 0.7, 0.5 + Math.random()*0.15);
+    const petal = createPetal(scale, color);
+    petal.rotation.z = angle;
+    petal.position.set(Math.cos(angle)*0.15*scale, Math.sin(angle)*0.15*scale, 0);
+    petal.rotation.x = -0.3 + Math.random()*0.2;
+    group.add(petal);
+    petals.push({ mesh: petal, angle, baseRot: petal.rotation.x, phase: Math.random()*Math.PI*2 });
+  }
+  const centerMat = new THREE.MeshStandardMaterial({
+    color: new THREE.Color().setHSL(hue, 0.8, 0.35),
+    roughness: 0.3, metalness: 0.2,
+    emissive: new THREE.Color().setHSL(hue, 0.6, 0.15),
+    emissiveIntensity: 0.5,
+  });
+  const center = new THREE.Mesh(new THREE.SphereGeometry(0.08*scale, 12, 12), centerMat);
+  group.add(center);
+  const stemMat = new THREE.MeshStandardMaterial({ color: 0x2a5a2a, roughness: 0.7 });
+  const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.01, 0.015, 0.6*scale, 6), stemMat);
+  stem.position.y = -0.3*scale;
+  group.add(stem);
+  group.position.set(x, y, z);
+  group.rotation.x = Math.random() * 0.5;
+  group.rotation.y = Math.random() * Math.PI * 2;
+  group.userData = {
+    petals, center, stem,
+    baseY: y,
+    floatSpeed: 0.3 + Math.random()*0.5,
+    floatAmp: 0.05 + Math.random()*0.12,
+    rotSpeedY: (Math.random()-0.5)*0.004,
+    rotSpeedX: (Math.random()-0.5)*0.002,
+    phase: Math.random()*Math.PI*2,
+  };
+  return group;
+}
+
+function createFloatPetal(color) {
+  const shape = new THREE.Shape();
+  shape.moveTo(0, 0);
+  shape.bezierCurveTo(0.1, 0.05, 0.15, 0.2, 0, 0.3);
+  shape.bezierCurveTo(-0.15, 0.2, -0.1, 0.05, 0, 0);
+  const geo = new THREE.ShapeGeometry(shape);
+  const mat = new THREE.MeshStandardMaterial({
+    color: new THREE.Color(color),
+    side: THREE.DoubleSide, transparent: true, opacity: 0.5, roughness: 0.4,
+  });
+  const mesh = new THREE.Mesh(geo, mat);
+  const s = 0.08 + Math.random()*0.12;
+  mesh.scale.set(s, s, s);
+  mesh.position.set((Math.random()-0.5)*8, Math.random()*4+1, (Math.random()-0.5)*6-1);
+  mesh.rotation.set(Math.random()*Math.PI, Math.random()*Math.PI, Math.random()*Math.PI);
+  mesh.userData = {
+    rotSpeed: { x: (Math.random()-0.5)*0.02, y: (Math.random()-0.5)*0.02, z: (Math.random()-0.5)*0.02 },
+    driftSpeed: { x: (Math.random()-0.5)*0.002, y: -(0.003+Math.random()*0.005), z: (Math.random()-0.5)*0.002 },
+    phase: Math.random()*Math.PI*2,
+    swingAmp: 0.002+Math.random()*0.004,
+    swingFreq: 0.3+Math.random()*0.5,
+  };
+  return mesh;
+}
+
+// ── BUILD SCENE ──
+const flowers = [];
+const flowerHues = [0.0, 0.05, 0.92, 0.78, 0.55, 0.12];
+flowerHues.forEach((hue) => {
+  const f = createFlower(
+    (Math.random()-0.5)*5, 0.3+Math.random()*0.5, (Math.random()-0.5)*4-1,
+    0.6+Math.random()*0.4, hue, 6+Math.floor(Math.random()*5)
+  );
+  scene.add(f);
+  flowers.push(f);
+});
+
+const floatPetals = [];
+for (let i = 0; i < 30; i++) {
+  const p = createFloatPetal(new THREE.Color().setHSL(Math.random(), 0.6, 0.5));
+  scene.add(p);
+  floatPetals.push(p);
+}
+
+// Glow particles
+const glowCount = 200;
+const glowGeo = new THREE.BufferGeometry();
+const glowPos = new Float32Array(glowCount*3);
+const glowSizes = new Float32Array(glowCount);
+for (let i = 0; i < glowCount; i++) {
+  glowPos[i*3] = (Math.random()-0.5)*10;
+  glowPos[i*3+1] = Math.random()*5;
+  glowPos[i*3+2] = (Math.random()-0.5)*8-1;
+  glowSizes[i] = 0.02 + Math.random()*0.04;
+}
+glowGeo.setAttribute('position', new THREE.BufferAttribute(glowPos, 3));
+glowGeo.setAttribute('size', new THREE.BufferAttribute(glowSizes, 1));
+const glowMat = new THREE.PointsMaterial({
+  color: 0xff88cc, size: 0.04, transparent: true,
+  opacity: 0.3, blending: THREE.AdditiveBlending, sizeAttenuation: true,
+});
+const glowParticles = new THREE.Points(glowGeo, glowMat);
+scene.add(glowParticles);
+
+// ── MOUSE ──
+const mouse = { x: 0, y: 0 };
+document.addEventListener('mousemove', (e) => {
+  const rect = hero.getBoundingClientRect();
+  mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+  mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+});
+document.addEventListener('touchmove', (e) => {
+  const t = e.touches[0];
+  const rect = hero.getBoundingClientRect();
+  mouse.x = ((t.clientX - rect.left) / rect.width) * 2 - 1;
+  mouse.y = -((t.clientY - rect.top) / rect.height) * 2 + 1;
+}, { passive: true });
+
+// ── RESIZE ──
+function resize() {
+  const w = hero.clientWidth, h = hero.clientHeight;
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+  renderer.setSize(w, h);
+}
+window.addEventListener('resize', resize);
+
+// ── ANIMATION ──
+let time = 0;
+function animate() {
+  requestAnimationFrame(animate);
+  time += 0.005;
+
+  const tx = mouse.x * 0.3;
+  const ty = mouse.y * 0.2 + 1.5;
+  camera.position.x += (tx - camera.position.x) * 0.03;
+  camera.position.y += (ty - camera.position.y) * 0.03;
+  camera.lookAt(0, 1, 0);
+
+  flowers.forEach((f) => {
+    f.position.y = f.userData.baseY + Math.sin(time*f.userData.floatSpeed + f.userData.phase) * f.userData.floatAmp;
+    f.rotation.y += f.userData.rotSpeedY;
+    f.rotation.x += f.userData.rotSpeedX;
+    f.userData.petals.forEach((p) => {
+      p.mesh.rotation.x = p.baseRot + Math.sin(time*2 + p.phase)*0.05;
+    });
+    if (f.userData.center) {
+      const s = 1 + Math.sin(time*2 + f.userData.phase)*0.05;
+      f.userData.center.scale.set(s, s, s);
+    }
+  });
+
+  floatPetals.forEach((p) => {
+    p.rotation.x += p.userData.rotSpeed.x;
+    p.rotation.y += p.userData.rotSpeed.y;
+    p.rotation.z += p.userData.rotSpeed.z;
+    p.position.x += p.userData.driftSpeed.x + Math.sin(time*p.userData.swingFreq + p.userData.phase)*p.userData.swingAmp;
+    p.position.y += p.userData.driftSpeed.y;
+    p.position.z += p.userData.driftSpeed.z + Math.cos(time*p.userData.swingFreq*0.7 + p.userData.phase)*p.userData.swingAmp*0.5;
+    if (p.position.y < -1) {
+      p.position.set((Math.random()-0.5)*8, 4+Math.random()*2, (Math.random()-0.5)*6-1);
+    }
+  });
+
+  const gp = glowParticles.geometry.attributes.position.array;
+  for (let i = 0; i < glowCount; i++) {
+    gp[i*3+1] -= 0.002;
+    gp[i*3] += Math.sin(time*0.5 + i) * 0.001;
+    if (gp[i*3+1] < -1) {
+      gp[i*3] = (Math.random()-0.5)*10;
+      gp[i*3+1] = 5 + Math.random()*2;
+      gp[i*3+2] = (Math.random()-0.5)*8 - 1;
+    }
+  }
+  glowParticles.geometry.attributes.position.needsUpdate = true;
+
+  renderer.render(scene, camera);
+}
+animate();
+
+// ── UI ──
+document.getElementById('menuToggle').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+document.querySelectorAll('nav .links a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+const secs = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  secs.forEach(s => { if (window.scrollY >= s.offsetTop - 200) cur = s.id; });
+  document.querySelectorAll('nav .links a').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === `#${cur}`);
+  });
+});
+
+document.getElementById('contactForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const btn = e.target.querySelector('button');
+  btn.textContent = 'GÖNDERİLDİ! 😈🔥';
+  btn.style.background = 'linear-gradient(135deg,var(--neon),var(--cyan))';
+  setTimeout(() => {
+    btn.textContent = 'GÖNDER GİTSİN 🌺';
+    btn.style.background = '';
+    e.target.reset();
+  }, 3000);
+});
+
+console.log('🔥 YEREM SENI RONYAM — AKILLI OL, YOKSA ISIRIRIM! 😈');
+</script>
+</body>
+</html>
